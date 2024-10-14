@@ -1,0 +1,6 @@
+.env
+logs.txt
+poetry.lock
+blog_strategy_report.md
+*.pyc
+.DS_Store
