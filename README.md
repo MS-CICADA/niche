@@ -15,6 +15,94 @@ The Blog Content Research Crew automates the process of creating effective blog 
 
 This system aims to provide valuable insights and actionable recommendations for blog content creation and optimization, saving time and enhancing the quality of content strategies.
 
+## System Design
+
+The Blog Content Research Crew is designed as a multi-agent system, with each agent specializing in specific tasks. Here's a detailed overview of the system architecture:
+
+```mermaid
+graph TD
+    A[Blog Content Strategy Manager] --> B[Keyword Research Specialist]
+    A --> C[Content Ideation Specialist]
+    A --> D[Trend Analysis Specialist]
+    A --> E[Report Generation Specialist]
+    
+    B --> F[KeywordExpansionTool]
+    B --> G[AIWebSearch]
+    B --> H[SerperDevScraper]
+    
+    C --> G
+    C --> I[Content Idea Generator]
+    
+    D --> G
+    D --> J[Trend Analyzer]
+    
+    E --> K[Report Compiler]
+    
+    F --> L[DataForSEO API]
+    G --> M[Tavily API]
+    H --> N[Serper API]
+    
+    B -- Initial Keywords --> O[Keyword Database]
+    O -- Expanded Keywords --> B
+    B -- Top Keywords --> C
+    B -- Keyword Insights --> D
+    
+    C -- Content Ideas --> E
+    D -- Trend Reports --> E
+    
+    E --> P[Final Blog Strategy Report]
+
+    subgraph External APIs
+        L
+        M
+        N
+    end
+
+    subgraph Data Storage
+        O
+    end
+
+    subgraph Output
+        P
+    end
+```
+
+*Note: This diagram uses Mermaid syntax. If it doesn't render in your Markdown viewer, you can copy the code and paste it into the [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) to view the diagram.*
+
+## Activity Diagram
+
+The following detailed activity diagram outlines the process flow of the Blog Content Research Crew:
+
+```mermaid
+graph TD
+    A[Start] --> B[Generate Initial Keywords]
+    B --> C[Expand Keywords using KeywordExpansionTool]
+    C --> D[Analyze Expanded Keywords]
+    D --> E{Select Top 100 Keywords}
+    E --> F[Perform Deep-Dive Analysis on Top 10]
+    F --> G[Use SerperDevScraper for SERP Data]
+    F --> H[Use AIWebSearch for Additional Insights]
+    G --> I[Analyze Search Intent]
+    H --> I
+    I --> J[Identify Content Gaps]
+    J --> K[Assess Long-Form Content Potential]
+    K --> L[Generate Blog Content Ideas]
+    L --> M[Identify Blog Content Trends]
+    M --> N[Use AIWebSearch for Trend Data]
+    N --> O[Analyze Popular Formats]
+    O --> P[Identify Emerging Subtopics]
+    P --> Q[Determine Audience Preferences]
+    Q --> R[Study Successful Content Strategies]
+    R --> S[Compile Comprehensive Report]
+    S --> T[Create Content Calendar]
+    T --> U[Develop SEO Strategy]
+    U --> V[Outline Social Media Strategy]
+    V --> W[Finalize Blog Strategy Report]
+    W --> X[End]
+```
+
+*Note: This diagram uses Mermaid syntax. If it doesn't render in your Markdown viewer, you can copy the code and paste it into the [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) to view the diagram.*
+
 ## Installation
 
 Ensure you have Python >=3.10 <=3.13 installed on your system.
@@ -53,17 +141,19 @@ Ensure you have Python >=3.10 <=3.13 installed on your system.
 
 ## Running the Project
 
-Start your Blog Content Research Crew:
+1. Define your blog niche:
+   Open `src/niche/main.py` and locate the `initial_topic` variable. Set it to your desired blog niche or topic. This will be used as the starting point for the keyword research and content strategy development.
 
-```bash
-crewai run | tee logs.txt
-```
+2. Start your Blog Content Research Crew:
+   ```bash
+   crewai run | tee logs.txt
+   ```
 
 This command initializes the crew, assigns tasks to agents, and begins the research process. The output will be saved in two files:
 - `blog_strategy_report.md`: The comprehensive blog strategy report
 - `logs.txt`: A log of the entire process
 
-## Using Ollama (Local Model) [OPTIONAL]
+## Using Ollama (Local Model)
 
 To use a local Ollama model instead of OpenAI's API:
 
